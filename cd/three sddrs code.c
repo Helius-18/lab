@@ -1,11 +1,26 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
 #include<iostream>
+char *strrev(char *str)
+{
+      char *p1, *p2;
+
+      if (! str || ! *str)
+            return str;
+      for (p1 = str, p2 = str + strlen(str) - 1; p2 > p1; ++p1, --p2)
+      {
+            *p1 ^= *p2;
+            *p2 ^= *p1;
+            *p1 ^= *p2;
+      }
+      return str;
+}
 void pm();
 void plus();
 void div();
 int i,ch,j,l,addr=100;
-char ex[10], exp[10] ,exp1[10],exp2[10],id1[5],op[5],id2[5];
+char ex[10], e[10] ,e1[10],e2[10],id1[5],op[5],id2[5];
 int main()
 {
 while(1)
@@ -15,33 +30,33 @@ scanf("%d",&ch);
 switch(ch)
 {
 case 1:
-printf("\nEnter the expression with assignment operator:");
-scanf("%s",exp);
-l=strlen(exp);
-exp2[0]='\0';
+printf("\nEnter the eression with assignment operator:");
+scanf("%s",e);
+l=strlen(e);
+e2[0]='\0';
 i=0;
-while(exp[i]!='=')
+while(e[i]!='=')
 {
 i++;
 }
-strncat(exp2,exp,i);
-strrev(exp);
-exp1[0]='\0';
-strncat(exp1,exp,l-(i+1));
-strrev(exp1);
-printf("Three address code:\ntemp=%s\n%s=temp\n",exp1,exp2);
+strncat(e2,e,i);
+strrev(e);
+e1[0]='\0';
+strncat(e1,e,l-(i+1));
+strrev(e1);
+printf("Three address code:\ntemp=%s\n%s=temp\n",e1,e2);
 break;
 case 2:
-printf("\nEnter the expression with arithmetic operator:");
+printf("\nEnter the eression with arithmetic operator:");
 scanf("%s",ex);
-strcpy(exp,ex);
-l=strlen(exp);
-exp1[0]='\0';
+strcpy(e,ex);
+l=strlen(e);
+e1[0]='\0';
 for(i=0;i<l;i++)
 {
-if(exp[i]=='+'||exp[i]=='-')
+if(e[i]=='+'||e[i]=='-')
 {
-if(exp[i+2]=='/'||exp[i+2]=='*')
+if(e[i+2]=='/'||e[i+2]=='*')
 {
 pm();
 break;
@@ -52,7 +67,7 @@ plus();
 break;
 }
 }
-else if(exp[i]=='/'||exp[i]=='*')
+else if(e[i]=='/'||e[i]=='*')
 {
 div();
 break;
@@ -60,11 +75,10 @@ break;
 }
 break;
 case 3:
-printf("Enter the expression with relational operator");
-scanf("%s%s%s",&id1,&op,&id2);
-if(((strcmp(op,"<")==0)||(strcmp(op,">")==0)||(strcmp(op,"<=")==0)||(strcmp(op,">=")==0)||(strc
-mp(op,"==")==0)||(strcmp(op,"!=")==0))==0)
-printf("Expression is error");
+printf("Enter the eression with relational operator");
+scanf("%s%s%s",id1,op,id2);
+if(((strcmp(op,"<")==0)||(strcmp(op,">")==0)||(strcmp(op,"<=")==0)||(strcmp(op,">=")==0)||(strcmp(op,"==")==0)||(strcmp(op,"!=")==0))==0)
+printf("eression is error");
 else
 {
 printf("\n%d\tif %s%s%s goto %d",addr,id1,op,id2,addr+3);
@@ -83,19 +97,19 @@ exit(0);
 }
 void pm()
 {
-strrev(exp);
+strrev(e);
 j=l-i-1;
-strncat(exp1,exp,j);
-strrev(exp1);
-printf("Three address code:\ntemp=%s\ntemp1=%c%ctemp\n",exp1,exp[j+1],exp[j]);
+strncat(e1,e,j);
+strrev(e1);
+printf("Three address code:\ntemp=%s\ntemp1=%c%ctemp\n",e1,e[j+1],e[j]);
 }
 void div()
 {
-strncat(exp1,exp,i+2);
-printf("Three address code:\ntemp=%s\ntemp1=temp%c%c\n",exp1,exp[i+2],exp[i+3]);
+strncat(e1,e,i+2);
+printf("Three address code:\ntemp=%s\ntemp1=temp%c%c\n",e1,e[i+2],e[i+3]);
 }
 void plus()
 {
-strncat(exp1,exp,i+2);
-printf("Three address code:\ntemp=%s\ntemp1=temp%c%c\n",exp1,exp[i+2],exp[i+3]);
+strncat(e1,e,i+2);
+printf("Three address code:\ntemp=%s\ntemp1=temp%c%c\n",e1,e[i+2],e[i+3]);
 }
